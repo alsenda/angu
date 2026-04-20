@@ -373,17 +373,11 @@ body {
 ======================== */
 .home-stats {
   background: var(--dark);
-  padding: 0;
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.home-stats::-webkit-scrollbar { display: none; }
-
 .home-stat-pill {
-  flex: 1;
-  min-width: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -392,6 +386,8 @@ body {
   border-right: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
 }
+
+.home-stat-pill:last-child { border-right: none; }
 
 .home-stat-pill:last-child { border-right: none; }
 
@@ -911,14 +907,11 @@ body {
 /* ========================
    SOCIAL PROOF SECTION
 ======================== */
+/* wrapper only — inner div owns the grid layout */
 .social-section {
   padding: 72px 20px;
   max-width: 900px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: start;
 }
 
 .app-card {
@@ -1978,10 +1971,6 @@ h3, h4 { color: var(--primary-dark); }
 
   .footer-brand { grid-column: auto; }
 
-  .social-section {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .mission-inner {
     grid-template-columns: 1fr 1fr;
   }
@@ -2003,6 +1992,22 @@ h3, h4 { color: var(--primary-dark); }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .test-card { padding: 18px; }
   .mission-inner { grid-template-columns: 1fr; }
-  .social-section { grid-template-columns: 1fr; }
   .mission-vehicles { grid-template-columns: 1fr; }
+
+  /* stats: 2×2 grid instead of horizontal scroll */
+  .home-stats { grid-template-columns: repeat(2, 1fr); }
+  .home-stat-pill { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .home-stat-pill:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.06); }
+  .home-stat-pill:nth-child(3),
+  .home-stat-pill:nth-child(4) { border-bottom: none; }
+
+  /* footer: single column */
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: auto; }
+
+  /* course cards: single column */
+  .home-courses-grid { grid-template-columns: 1fr; }
+
+  /* journey: single column on very small screens */
+  .journey-steps { grid-template-columns: repeat(2, 1fr); }
 }

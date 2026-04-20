@@ -395,8 +395,8 @@ export default function HomePage() {
         </section>
 
         {/* ── Apps & Reviews ── */}
-        <section className="social-section" style={{ padding: '72px 5%', maxWidth: '100%' }}>
-          <div style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+        <section className="social-section">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
             <div className="app-card">
               <h3 className="app-card-title">Aplicaciones de estudio</h3>
               <p className="app-card-subtitle">Accede a tus herramientas de preparación para el examen DGT.</p>
