@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  logoUrl      String?
+  primaryColor String   @default("#2563EB")
+  city         String?
+  phone        String?
+  email        String?
+  createdAt    DateTime @default(now())
+
+  users   User[]
+  courses Course[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  email     String
+  password  String
+  name      String
+  role      String   @default("STUDENT")
+  createdAt DateTime @default(now())
+
+  progress     LessonProgress[]
+  testAttempts TestAttempt[]
+
+  @@unique([tenantId, email])
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  title       String
+  description String
+  thumbnail   String?
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  lessons Lesson[]
+  tests   Test[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  title       String
+  description String?
+  videoUrl    String?
+  duration    Int?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  progress LessonProgress[]
+}
+
+model Test {
+  id          String   @id @default(cuid())
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id])
+  title       String
+  description String?
+  timeLimit   Int      @default(30)
+  passingScore Int     @default(70)
+  createdAt   DateTime @default(now())
+
+  questions Question[]
+  attempts  TestAttempt[]
+}
+
+model Question {
+  id            String  @id @default(cuid())
+  testId        String
+  test          Test    @relation(fields: [testId], references: [id])
+  text          String
+  imageUrl      String?
+  options       String
+  correctAnswer String
+  explanation   String?
+  order         Int     @default(0)
+}
+
+model LessonProgress {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  lessonId       String
+  lesson         Lesson   @relation(fields: [lessonId], references: [id])
+  completed      Boolean  @default(false)
+  watchedSeconds Int      @default(0)
+  updatedAt      DateTime @updatedAt
+
+  @@unique([userId, lessonId])
+}
+
+model TestAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  testId      String
+  test        Test     @relation(fields: [testId], references: [id])
+  score       Float
+  answers     String
+  passed      Boolean
+  completedAt DateTime @default(now())
+}
