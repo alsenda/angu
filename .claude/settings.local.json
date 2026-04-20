@@ -20,7 +20,11 @@
       "Bash(vercel deploy *)",
       "Bash(npx vercel *)",
       "Bash(git push *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(DATABASE_URL='postgresql://neondb_owner:npg_H6MJcP0ljtxa@ep-lively-feather-anede87i-pooler.c-6.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require' npx prisma db push --schema=prisma/schema.prisma)",
+      "Bash(DATABASE_URL='postgresql://neondb_owner:npg_H6MJcP0ljtxa@ep-lively-feather-anede87i-pooler.c-6.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require' npx tsx *)",
+      "mcp__vercel__get_runtime_logs",
+      "Bash(curl -s https://angu.alsenda.com/api)"
     ]
   }
 }
