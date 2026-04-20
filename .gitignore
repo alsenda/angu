@@ -1,7 +1,9 @@
 node_modules/
 dist/
 .env
+.env.*
 *.db
 *.db-journal
 
 .vercel
+.env*.local
